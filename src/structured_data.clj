@@ -35,36 +35,40 @@
   (* (width rectangle) (height rectangle)))
 
 (defn contains-point? [rectangle point]
-  (let [[[bl tr]] rectangle
-        [[x1 y1]] point]
-    (and (<= y1 tr) (<= bl x1))))
+  (let [[[x1 y1] [x2 y2]] rectangle
+        [x y] point]
+    (and (>= x x1) (<= x x2) (>= y y1) (<= y y2))))
+
 
 (defn contains-rectangle? [outer inner]
-  :-)
+  (let [[[x1 y1] [x2 y2]] inner]
+        (and (contains-point? outer (point x1 y1))
+             (contains-point? outer (point x2 y2)))))
 
 (defn title-length [book]
-  :-)
+  (count (:title book)))
 
 (defn author-count [book]
-  :-)
+  (count (:authors book)))
 
 (defn multiple-authors? [book]
-  :-)
+  (> (author-count book) 1))
 
 (defn add-author [book new-author]
-  :-)
+  (let [authors (:authors book)]
+    (assoc book :authors (conj authors new-author))))
 
 (defn alive? [author]
-  :-)
+  (not (contains? author :death-year)))
 
 (defn element-lengths [collection]
-  :-)
+  (map #(count %) collection))
 
 (defn second-elements [collection]
-  :-)
+  (map #(get % 1) collection))
 
 (defn titles [books]
-  :-)
+  (map #(:title %) books))
 
 (defn monotonic? [a-seq]
   :-)
